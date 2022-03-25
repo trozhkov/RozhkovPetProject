@@ -32,7 +32,7 @@ class FormPageElements(tests.base.base_page.BasePage):
 
     @property
     def phone_input_field(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@autocomplete='tel']")
+        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@type='tel']")
         return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
 
     def select_checkbox_at_index(self, index):
