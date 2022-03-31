@@ -17,7 +17,7 @@ ENV DISPLAY=:99
 RUN pip install selenium
 RUN pip install pytest
 
-WORKDIR /app -#python file that u want to run
+WORKDIR /app
 COPY . /app
 
 CMD ["python", "tests/form_page/test_form_page.py"]
