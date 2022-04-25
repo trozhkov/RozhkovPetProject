@@ -1,16 +1,55 @@
 from pytest import fixture
 from config import Config
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
 
 """
 FIXTURES
 """
 
+# @pytest.fixture
+# def drv(request):
+#     """
+#     SETUP DRIVER
+#     * Is passed into driver.py in the form of Driver(driver_class), which is webdriver.Chrome()
+#
+#     MAKE SCREENSHOTS
+#     * Assign screenshot index to the image incrementing by one with every new image,
+#     the final image is called final
+#     * Performed by driver.py make_screenshot()
+#     """
+#     driver = Driver(**driver_kwargs)
+#
+#     # try:
+#     #     # Remove zendesk
+#     #     zendesk = driver.find_element_by_css_selector('iframe#launcher')
+#     #     driver.execute_script("arguments[0].style.display = 'none'", zendesk)
+#     # except Exception:
+#     #     pass
+#
+#     # make screenshots
+#     test_name = request.function.__name__
+#     driver._test_fn_name = test_name
+#
+#     yield driver
+#
+#     try:
+#         driver.make_screenshot('final')
+#     except:
+#         pass
+#
+#     driver.quit()
+
 
 @fixture(scope="session")
 def drv(app_config):
-    yield webdriver.Chrome()
+    browser = app_config.browser[0]
+    if (ARGS := app_config.browser[1]) is not None:
+        drv = browser(options=ARGS)
+    else:
+        drv = browser()
+
+    yield drv
+
+    drv.quit()
 
 
 """

@@ -10,9 +10,8 @@ from tests.form_page.form_page_elements import FormPageElements
 @mark.ui
 @mark.parametrize("name", ["Иванов Иван", "Paul Smith"])
 def test_correct_name_input(drv, app_config, name):
-    form_page = FormPageElements(app_config.base_browser())
-    #form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.url)
 
     form_page.name_input_field.input_text(f"{name}")
     form_page.send_button.perform_click()
@@ -31,7 +30,7 @@ def test_correct_name_input(drv, app_config, name):
                             "somefakeperson@yandex.ru", "johndoeyahoo@mail.com"])
 def test_correct_email_input(drv, app_config, email):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
 
     form_page.email_input_field.input_text(f"{email}")
     form_page.send_button.perform_click()
@@ -48,7 +47,7 @@ def test_correct_email_input(drv, app_config, email):
 @mark.form_page
 def test_correct_country_code_selection(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
 
@@ -65,7 +64,7 @@ def test_correct_country_code_selection(drv, app_config):
 @mark.parametrize("phone", ["(456) 756-70-45", "(655) 764-25-34"])
 def test_correct_phone_number(drv, app_config, phone):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.phone_input_field.input_text(f"{phone}")
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
@@ -84,7 +83,7 @@ def test_correct_phone_number(drv, app_config, phone):
 @mark.parametrize("option", ["Samsung Galaxy s21", "PC: Windows 10"])
 def test_correct_checkbox_options(drv, app_config, option):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.select_checkbox_at_index(2).perform_click()
     form_page.select_checkbox_at_index(3).perform_click()
     form_page.send_button.perform_click()
@@ -102,7 +101,7 @@ def test_correct_checkbox_options(drv, app_config, option):
 @mark.form_page
 def test_correct_dropdown_selection(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.select_dropdown_option_at_index(3).perform_click()
 
     if form_page.dropdown_value_holder.value == "JS Cypress":
@@ -117,7 +116,7 @@ def test_correct_dropdown_selection(drv, app_config):
 @mark.form_page
 def test_correct_budget_input(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.budget_in_usd_input_field.input_text("200")
 
     if form_page.budget_in_usd_input_field.value == "200":
@@ -132,7 +131,7 @@ def test_correct_budget_input(drv, app_config):
 @mark.form_page
 def test_press_plus_button(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.plus_button.perform_click()
 
     if form_page.budget_in_usd_input_field.value == "101":
@@ -147,7 +146,7 @@ def test_press_plus_button(drv, app_config):
 @mark.form_page
 def test_press_minus_button(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.minus_button.perform_click()
 
     if form_page.budget_in_usd_input_field.value == "99":
@@ -162,7 +161,7 @@ def test_press_minus_button(drv, app_config):
 @mark.special
 def test_submit_form(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.name_input_field.input_text("Иван Иванович")
     form_page.email_input_field.input_text("ivanivanovich@mail.com")
     form_page.phone_input_field.input_text("(456) 756-70-45")
@@ -186,7 +185,7 @@ def test_submit_form(drv, app_config):
 @mark.form_page
 def test_all_fields_empty(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.send_button.perform_click()
 
     if form_page.error_message_by_index(1).is_visible() and \
@@ -207,7 +206,7 @@ def test_all_fields_empty(drv, app_config):
                                      "                    Иванов Иван"])
 def test_incorrect_name_input(drv, app_config, incorrect_name):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.name_input_field.input_text(f"{incorrect_name}")
     form_page.send_button.perform_click()
 
@@ -226,7 +225,7 @@ def test_incorrect_name_input(drv, app_config, incorrect_name):
                                       "m,ail@domain.com"])
 def test_incorrect_email_input(drv, app_config, incorrect_email):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.email_input_field.input_text(f"{incorrect_email}")
     form_page.send_button.perform_click()
 
@@ -244,7 +243,7 @@ def test_incorrect_email_input(drv, app_config, incorrect_email):
                                       "q234SDF#@-", "000,000"])
 def test_incorrect_phone_input(drv, app_config, incorrect_phone):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.phone_input_field.input_text(f"{incorrect_phone}")
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
@@ -264,7 +263,7 @@ def test_incorrect_phone_input(drv, app_config, incorrect_phone):
                                              "+3", "#@!", "e"])
 def test_incorrect_budget_input(drv, app_config, incorrect_budget_input):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.budget_in_usd_input_field.input_text(f"{incorrect_budget_input}")
     form_page.send_button.perform_click()
 
@@ -280,8 +279,7 @@ def test_incorrect_budget_input(drv, app_config, incorrect_budget_input):
 @mark.form_page
 def test_click_minus_button_until_negative_number(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
 
     form_page.budget_in_usd_input_field.input_text("0")
     form_page.minus_button.perform_click()
@@ -298,7 +296,7 @@ def test_click_minus_button_until_negative_number(drv, app_config):
 @mark.form_page
 def test_click_plus_or_minus_with_incorrect_budget_input(drv, app_config):
     form_page = FormPageElements(drv)
-    form_page.go(app_config.base_url)
+    form_page.go(app_config.url)
     form_page.budget_in_usd_input_field.input_text("324SDF")
     form_page.minus_button.perform_click()
     first_input = form_page.budget_in_usd_input_field.value

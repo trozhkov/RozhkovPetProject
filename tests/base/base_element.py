@@ -65,3 +65,7 @@ class BaseElement(object):
             return True
         except TimeoutException:
             return False
+
+    # @property
+    # def make_screenshot(self):
+
