@@ -1,13 +1,17 @@
 from pytest import mark
 from time import sleep
+from tests.form_page.form_page_elements import FormPageElements
 
 
 # 1 Форма - Положительная проверка - Ввести корректные данные в поле Your name
 # https://docs.google.com/document/d/1rptt8V_Z5qcc3lU-_SR_zr96w9TNqmVuWa1l04jFYFA/edit?usp=sharing
-@mark.ui
 @mark.form_page
+@mark.trial
+@mark.ui
 @mark.parametrize("name", ["Иванов Иван", "Paul Smith"])
-def test_correct_name_input(form_page, app_config, name):
+def test_correct_name_input(drv, app_config, name):
+    form_page = FormPageElements(app_config.base_browser())
+    #form_page = FormPageElements(drv)
     form_page.go(app_config.base_url)
 
     form_page.name_input_field.input_text(f"{name}")
@@ -25,8 +29,10 @@ def test_correct_name_input(form_page, app_config, name):
 @mark.form_page
 @mark.parametrize("email", ["test@mail.fake.eu", "anatoly.rozhkov1998@gmail.com",
                             "somefakeperson@yandex.ru", "johndoeyahoo@mail.com"])
-def test_correct_email_input(form_page, email):
-    form_page.refresh_page()
+def test_correct_email_input(drv, app_config, email):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
+
     form_page.email_input_field.input_text(f"{email}")
     form_page.send_button.perform_click()
 
@@ -40,8 +46,9 @@ def test_correct_email_input(form_page, email):
 # https://docs.google.com/document/d/1Ks2-c0DFShDtS330IlY0SaZWFU1dTP-AkExsaYMEQNU/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_correct_country_code_selection(form_page):
-    form_page.refresh_page()
+def test_correct_country_code_selection(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
 
@@ -56,8 +63,9 @@ def test_correct_country_code_selection(form_page):
 @mark.ui
 @mark.form_page
 @mark.parametrize("phone", ["(456) 756-70-45", "(655) 764-25-34"])
-def test_correct_phone_number(form_page, phone):
-    form_page.refresh_page()
+def test_correct_phone_number(drv, app_config, phone):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.phone_input_field.input_text(f"{phone}")
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
@@ -74,8 +82,9 @@ def test_correct_phone_number(form_page, phone):
 @mark.ui
 @mark.form_page
 @mark.parametrize("option", ["Samsung Galaxy s21", "PC: Windows 10"])
-def test_correct_checkbox_options(form_page, option):
-    form_page.refresh_page()
+def test_correct_checkbox_options(drv, app_config, option):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.select_checkbox_at_index(2).perform_click()
     form_page.select_checkbox_at_index(3).perform_click()
     form_page.send_button.perform_click()
@@ -91,8 +100,9 @@ def test_correct_checkbox_options(form_page, option):
 # https://docs.google.com/document/d/1gaiHnJWbtE9xqMCkcav861SzEW_n0JOxoK-V57I3W_8/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_correct_dropdown_selection(form_page):
-    form_page.refresh_page()
+def test_correct_dropdown_selection(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.select_dropdown_option_at_index(3).perform_click()
 
     if form_page.dropdown_value_holder.value == "JS Cypress":
@@ -105,8 +115,9 @@ def test_correct_dropdown_selection(form_page):
 # https://docs.google.com/document/d/1TDHpwD2F_YSc8giMl2cAueGxD8W1iRp9kjqWMy42x_k/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_correct_budget_input(form_page):
-    form_page.refresh_page()
+def test_correct_budget_input(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.budget_in_usd_input_field.input_text("200")
 
     if form_page.budget_in_usd_input_field.value == "200":
@@ -119,8 +130,9 @@ def test_correct_budget_input(form_page):
 # https://docs.google.com/document/d/1eH6JU4oMPrc21p3S0ZoKFP9kMBmVyM1QiV2qskZnq-8/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_press_plus_button(form_page):
-    form_page.refresh_page()
+def test_press_plus_button(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.plus_button.perform_click()
 
     if form_page.budget_in_usd_input_field.value == "101":
@@ -133,8 +145,9 @@ def test_press_plus_button(form_page):
 # https://docs.google.com/document/d/1c0QaE0AEmQx7v3lROKXaoYfReQtTkF0sCFTjn7cTogA/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_press_minus_button(form_page):
-    form_page.refresh_page()
+def test_press_minus_button(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.minus_button.perform_click()
 
     if form_page.budget_in_usd_input_field.value == "99":
@@ -147,7 +160,8 @@ def test_press_minus_button(form_page):
 # https://docs.google.com/document/d/1sh8a4CL6c05pqZIbzK1JqztpSLhOy7MMnhJWhGUspZ0/edit?usp=sharing
 @mark.ui
 @mark.special
-def test_submit_form(form_page, app_config):
+def test_submit_form(drv, app_config):
+    form_page = FormPageElements(drv)
     form_page.go(app_config.base_url)
     form_page.name_input_field.input_text("Иван Иванович")
     form_page.email_input_field.input_text("ivanivanovich@mail.com")
@@ -170,8 +184,9 @@ def test_submit_form(form_page, app_config):
 # https://docs.google.com/document/d/1UjSanU3taRZ9kHG4ZMlxTuu6Wuamq35ZhAgPcCYtauI/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_all_fields_empty(form_page):
-    form_page.refresh_page()
+def test_all_fields_empty(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.send_button.perform_click()
 
     if form_page.error_message_by_index(1).is_visible() and \
@@ -190,8 +205,9 @@ def test_all_fields_empty(form_page):
 @mark.form_page
 @mark.parametrize("incorrect_name", ["Ivan Ivanov1", "Иванов Иван@#", "342@3$дфг",
                                      "                    Иванов Иван"])
-def test_incorrect_name_input(form_page, incorrect_name):
-    form_page.refresh_page()
+def test_incorrect_name_input(drv, app_config, incorrect_name):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.name_input_field.input_text(f"{incorrect_name}")
     form_page.send_button.perform_click()
 
@@ -208,8 +224,9 @@ def test_incorrect_name_input(form_page, incorrect_name):
 @mark.parametrize("incorrect_email", ["asdf@", "маил@маил.сом", "mail@domain",
                                       "mail@domain", "m@ail@domain.com", "m#ail@domain.com",
                                       "m,ail@domain.com"])
-def test_incorrect_email_input(form_page, incorrect_email):
-    form_page.refresh_page()
+def test_incorrect_email_input(drv, app_config, incorrect_email):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.email_input_field.input_text(f"{incorrect_email}")
     form_page.send_button.perform_click()
 
@@ -225,8 +242,9 @@ def test_incorrect_email_input(form_page, incorrect_email):
 @mark.form_page
 @mark.parametrize("incorrect_phone", ["(454) 343", "(454) 343-23", "adfads",
                                       "q234SDF#@-", "000,000"])
-def test_incorrect_phone_input(form_page, incorrect_phone):
-    form_page.refresh_page()
+def test_incorrect_phone_input(drv, app_config, incorrect_phone):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.phone_input_field.input_text(f"{incorrect_phone}")
     form_page.expand_country_flag_dropdown.perform_click()
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
@@ -244,8 +262,9 @@ def test_incorrect_phone_input(form_page, incorrect_phone):
 @mark.form_page
 @mark.parametrize("incorrect_budget_input", ["adgas", "-2342", "-2", "3*20", "3-23",
                                              "+3", "#@!", "e"])
-def test_incorrect_budget_input(form_page, incorrect_budget_input):
-    form_page.refresh_page()
+def test_incorrect_budget_input(drv, app_config, incorrect_budget_input):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.budget_in_usd_input_field.input_text(f"{incorrect_budget_input}")
     form_page.send_button.perform_click()
 
@@ -259,8 +278,9 @@ def test_incorrect_budget_input(form_page, incorrect_budget_input):
 # https://docs.google.com/document/d/1hPUGK9o0MQO8TY98g2n0RujbN_rDb1ag86xgje-iW_o/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_click_minus_button_until_negative_number(form_page, app_config):
-    form_page.refresh_page()
+def test_click_minus_button_until_negative_number(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.go(app_config.base_url)
 
     form_page.budget_in_usd_input_field.input_text("0")
@@ -276,8 +296,9 @@ def test_click_minus_button_until_negative_number(form_page, app_config):
 # https://docs.google.com/document/d/1PifMUZkkSEte1c1ZDPuHQ1gXHSlRUQbEKzO8lbEi3jM/edit?usp=sharing
 @mark.ui
 @mark.form_page
-def test_click_plus_or_minus_with_incorrect_budget_input(form_page):
-    form_page.refresh_page()
+def test_click_plus_or_minus_with_incorrect_budget_input(drv, app_config):
+    form_page = FormPageElements(drv)
+    form_page.go(app_config.base_url)
     form_page.budget_in_usd_input_field.input_text("324SDF")
     form_page.minus_button.perform_click()
     first_input = form_page.budget_in_usd_input_field.value

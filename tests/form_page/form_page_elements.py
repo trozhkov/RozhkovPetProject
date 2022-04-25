@@ -1,94 +1,84 @@
 from selenium.webdriver.common.by import By
-import tests.base.base_element
+from tests.base.base_element import BaseElement as BE
 import tests.base.base_page
-import tests.base.locator
+from tests.base.locator import Locator
 
 
 class FormPageElements(tests.base.base_page.BasePage):
     @property
     def name_input_field(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@name='Name']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//input[@name='Name']"))
 
     @property
     def email_input_field(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@name='Email']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//input[@name='Email']"))
 
     @property
     def expand_country_flag_dropdown(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//div[@class='t-input-phonemask__select']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//div[@class='t-input-phonemask__select']"))
 
     # for example letters == "ru"
     def select_option_in_flag_dropdown_by_letters(self, letters):
-        locator = tests.base.locator.Locator(by=By.XPATH, value=f"//div[@id='t-phonemask_{letters}']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value=f"//div[@id='t-phonemask_{letters}']"))
 
     @property
     def country_code(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//span[@class='t-input-phonemask__select-code']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH,
+                                                      value="//span[@class='t-input-phonemask__select-code']"))
 
     @property
     def phone_input_field(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@type='tel']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//input[@type='tel']"))
 
     def select_checkbox_at_index(self, index):
-        locator = tests.base.locator.Locator(by=By.XPATH,
-                                             value=f"/descendant::div[@class='t-checkbox__indicator'][{index}]")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver,
+                  locator=Locator(by=By.XPATH,
+                                  value=f"/descendant::div[@class='t-checkbox__indicator'][{index}]"))
 
     @property
     def checkbox_value_holder(self):
-        locator = tests.base.locator.Locator(by=By.XPATH,
-                                             value="//input[@class='t-checkboxes__hiddeninput js-tilda-rule']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH,
+                                                      value="//input[@class='t-checkboxes__hiddeninput js-tilda-rule']"))
 
     def select_dropdown_option_at_index(self, index):
-        locator = tests.base.locator.Locator(by=By.XPATH, value=f"//select/option[{index}]")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value=f"//select/option[{index}]"))
 
     @property
     def dropdown_value_holder(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//select[@name='Select automation technology']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH,
+                                                      value="//select[@name='Select automation technology']"))
 
     @property
     def budget_in_usd_input_field(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//input[@name='Budget in USD']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//input[@name='Budget in USD']"))
 
     @property
     def minus_button(self):
-        locator = tests.base.locator.Locator(by=By.XPATH,
-                                             value="//span[@class='t-inputquantity__btn t-inputquantity__btn-minus']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver,
+                  locator=Locator(by=By.XPATH,
+                                  value="//span[@class='t-inputquantity__btn t-inputquantity__btn-minus']"))
 
     @property
     def plus_button(self):
-        locator = tests.base.locator.Locator(by=By.XPATH,
-                                             value="//span[@class='t-inputquantity__btn t-inputquantity__btn-plus']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver,
+                  locator=Locator(by=By.XPATH,
+                                  value="//span[@class='t-inputquantity__btn t-inputquantity__btn-plus']"))
 
     @property
     def send_button(self):
-        locator = tests.base.locator.Locator(by=By.XPATH, value="//button[@type='submit']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//button[@type='submit']"))
 
     def error_message_by_index(self, index):
-        locator = tests.base.locator.Locator(by=By.XPATH, value=f"/descendant::div[@class='t-input-error'][{index}]")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH,
+                                                      value=f"/descendant::div[@class='t-input-error'][{index}]"))
 
     def error_message_under_send_by_index(self, index):
-        locator = tests.base.locator.Locator(
-            by=By.XPATH,
-            value=f"descendant::div[@class='t-form__errorbox-text t-text t-text_md']/p[{index}]")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver,
+                  locator=Locator(by=By.XPATH,
+                                  value=f"descendant::div[@class='t-form__errorbox-text t-text t-text_md']/p[{index}]"))
 
     @property
     def success_message(self):
-        locator = tests.base.locator.Locator(by=By.XPATH,
-                                             value="//div[@class='js-successbox t-form__successbox t-text t-text_md']")
-        return tests.base.base_element.BaseElement(driver=self.driver, locator=locator)
+        return BE(driver=self.driver,
+                  locator=Locator(by=By.XPATH,
+                                  value="//div[@class='js-successbox t-form__successbox t-text t-text_md']"))

@@ -1,21 +1,16 @@
 from pytest import fixture
-from selenium import webdriver
-from tests.form_page.form_page_elements import FormPageElements
 from config import Config
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 
 """
-ADD PAGE OBJECT FIXTURES
+FIXTURES
 """
 
 
 @fixture(scope="session")
-def form_page():
-    login_page = FormPageElements(
-        webdriver.Chrome()
-    )
-    yield login_page
-    # tearing down
-    print(" I am tearing down this browser")
+def drv(app_config):
+    yield webdriver.Chrome()
 
 
 """
@@ -28,16 +23,23 @@ def pytest_addoption(parser):
     parser.addoption("--env",
                      action="store",
                      default="dev",
-                     help="Environment to run your tests against")
+                     help="Specify environment")
+    parser.addoption("--browser",
+                     action="store",
+                     default="chrome",
+                     help="Select browser")
 
 
 @fixture(scope="session")
-def env(request):
-    """retrieve option from the pytest_option"""
-    return request.config.getoption("--env")
+def get_parameters(request):
+    config_param = {
+        "env": request.config.getoption("--env"),
+        "browser": request.config.getoption("--browser")
+    }
+    return config_param
 
 
 @fixture(scope="session")
-def app_config(env):
-    cfg = Config(env)
-    return cfg
+def app_config(get_parameters):
+    configuration = Config(get_parameters)
+    return configuration

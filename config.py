@@ -1,17 +1,37 @@
+from selenium import webdriver
+
+
 class Config:
-    def __init__(self, env):
+    def __init__(self, configuration):
 
-        SUPPORTED_ENVS = ["dev", "qa"]
+        ENV = configuration["env"]
+        BROWSER = configuration["browser"]
 
-        if env.lower() not in SUPPORTED_ENVS:
-            raise Exception(f"{env} is not a supported environment (supported envs: {SUPPORTED_ENVS})")
+        # Choose URL and port
+        SUPPORTED_ENVS = ["prod", "dev"]
+
+        if ENV.lower() not in SUPPORTED_ENVS:
+            raise Exception(f"{ENV} is not supported (supported environments: {SUPPORTED_ENVS})")
 
         self.base_url = {
+            "prod": "http://rozhkovqa.tilda.ws/test_form",
             "dev": "http://rozhkovqa.tilda.ws/test_form",
-            "qa": "http://rozhkovqa.tilda.ws/test_form"
-        }[env]
+        }[ENV]
 
         self.app_port = {
+            "prod": 8080,
             "dev": 8080,
-            "qa": 8080
-        }[env]
+        }[ENV]
+
+        # Choose browser
+        SUPPORTED_BROWSERS = ["chrome", "firefox", "remote", "headless"]
+
+        if BROWSER.lower() not in SUPPORTED_BROWSERS:
+            raise Exception(f"{BROWSER} is not supported (supported browsers: {SUPPORTED_BROWSERS})")
+
+        self.base_browser = {
+            "chrome": webdriver.Chrome,
+            "firefox": webdriver.Firefox,
+            "remote": webdriver.Remote,
+            #"headless": webdriver.Chrome(options=Options().add_argument("--headless"))
+        }[BROWSER]
