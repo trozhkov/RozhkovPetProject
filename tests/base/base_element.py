@@ -58,6 +58,7 @@ class BaseElement(object):
         attribute = self.web_element.get_attribute(attr_name)
         return attribute
 
+    @property
     def is_visible(self):
         try:
             WebDriverWait(self.driver, 0).until(
@@ -66,6 +67,36 @@ class BaseElement(object):
         except TimeoutException:
             return False
 
-    # @property
-    # def make_screenshot(self):
 
+    def take_screenshot(self, request):
+        test_name = request.function.__name__
+
+    # def make_screenshot(self, name=None):
+    #     test_name = self._test_fn_name
+    #
+    #     if name is None:
+    #         try:
+    #             index = self._screenshot_index
+    #         except AttributeError:
+    #             index = 1
+    #
+    #         self._screenshot_index = index + 1
+    #         name = str(index)
+    #
+    #     screenshot_name = f'{test_name}/{name}.png'
+    #     path_to_screenshot = os.path.abspath(os.path.join(SCREENSHOTS_DIR, screenshot_name))
+    #     screenshot_dir = os.path.dirname(path_to_screenshot)
+    #     os.makedirs(screenshot_dir, exist_ok=True)
+    #     self.save_screenshot(path_to_screenshot)
+
+    # test_name = request.function.__name__
+    # driver._test_fn_name = test_name
+    #
+    # yield driver
+    #
+    # try:
+    #     driver.make_screenshot('final')
+    # except:
+    #     pass
+    #
+    # driver.quit()

@@ -40,13 +40,24 @@ FIXTURES
 
 
 @fixture(scope="session")
-def drv(app_config):
-    browser = app_config.browser[0]
-    if (ARGS := app_config.browser[1]) is not None:
-        drv = browser(options=ARGS)
-    else:
-        drv = browser()
+def drv(app_config, get_parameters):
+    """
+    app_config.browser returns a list
+    chrome, firefox, and headless keywords return a list with two items:
+    webdriver object and options
+    remote keyword returns a list with webdriver,
+    selenium server url, and options
+    """
+    browser = app_config.browser[0]  # webdriver object
 
+    if get_parameters["browser"] == "remote":
+        exe_path = app_config.browser[1]  # remote server url
+        ARGS = app_config.browser[2]  # options
+        drv = browser(command_executor=exe_path,
+                      options=ARGS)
+    else:
+        ARGS = app_config.browser[1]  # webdriver object
+        drv = browser(options=ARGS)  # options
     yield drv
 
     drv.quit()
@@ -71,6 +82,10 @@ def pytest_addoption(parser):
 
 @fixture(scope="session")
 def get_parameters(request):
+    """
+    detects what keywords was used with an option.
+    Ex: --env prod
+    """
     config_param = {
         "env": request.config.getoption("--env"),
         "browser": request.config.getoption("--browser")
@@ -80,5 +95,8 @@ def get_parameters(request):
 
 @fixture(scope="session")
 def app_config(get_parameters):
+    """
+    Returns value from a Config dictionary
+    """
     configuration = Config(get_parameters)
     return configuration
