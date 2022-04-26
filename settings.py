@@ -1,0 +1,1 @@
+SCREENSHOT_DIR = "screenshots"

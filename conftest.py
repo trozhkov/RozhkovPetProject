@@ -5,39 +5,6 @@ from config import Config
 FIXTURES
 """
 
-# @pytest.fixture
-# def drv(request):
-#     """
-#     SETUP DRIVER
-#     * Is passed into driver.py in the form of Driver(driver_class), which is webdriver.Chrome()
-#
-#     MAKE SCREENSHOTS
-#     * Assign screenshot index to the image incrementing by one with every new image,
-#     the final image is called final
-#     * Performed by driver.py make_screenshot()
-#     """
-#     driver = Driver(**driver_kwargs)
-#
-#     # try:
-#     #     # Remove zendesk
-#     #     zendesk = driver.find_element_by_css_selector('iframe#launcher')
-#     #     driver.execute_script("arguments[0].style.display = 'none'", zendesk)
-#     # except Exception:
-#     #     pass
-#
-#     # make screenshots
-#     test_name = request.function.__name__
-#     driver._test_fn_name = test_name
-#
-#     yield driver
-#
-#     try:
-#         driver.make_screenshot('final')
-#     except:
-#         pass
-#
-#     driver.quit()
-
 
 @fixture(scope="session")
 def drv(app_config, get_parameters):
@@ -58,6 +25,7 @@ def drv(app_config, get_parameters):
     else:
         ARGS = app_config.browser[1]  # webdriver object
         drv = browser(options=ARGS)  # options
+
     yield drv
 
     drv.quit()
@@ -100,3 +68,33 @@ def app_config(get_parameters):
     """
     configuration = Config(get_parameters)
     return configuration
+
+# def make_screenshot(self, name=None):
+#     test_name = self._test_fn_name
+#
+#     if name is None:
+#         try:
+#             index = self._screenshot_index
+#         except AttributeError:
+#             index = 1
+#
+#         self._screenshot_index = index + 1
+#         name = str(index)
+#
+#     screenshot_name = f'{test_name}/{name}.png'
+#     path_to_screenshot = os.path.abspath(os.path.join(SCREENSHOTS_DIR, screenshot_name))
+#     screenshot_dir = os.path.dirname(path_to_screenshot)
+#     os.makedirs(screenshot_dir, exist_ok=True)
+#     self.save_screenshot(path_to_screenshot)
+
+# test_name = request.function.__name__
+# driver._test_fn_name = test_name
+#
+# yield driver
+#
+# try:
+#     driver.make_screenshot('final')
+# except:
+#     pass
+#
+# driver.quit()

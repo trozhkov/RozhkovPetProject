@@ -15,8 +15,10 @@ def test_correct_name_input(drv, app_config, name):
 
     form_page.name_input_field.input_text(f"{name}")
     form_page.send_button.perform_click()
+    form_page.take_screenshot()
+    form_page.take_screenshot()
 
-    if form_page.error_message_by_index(1).is_visible():
+    if form_page.error_message_by_index(1).is_visible:
         assert False
     else:
         assert True
@@ -35,7 +37,7 @@ def test_correct_email_input(drv, app_config, email):
     form_page.email_input_field.input_text(f"{email}")
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(2).is_visible():
+    if form_page.error_message_by_index(2).is_visible:
         assert False
     else:
         assert True
@@ -70,7 +72,7 @@ def test_correct_phone_number(drv, app_config, phone):
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(3).is_visible():
+    if form_page.error_message_by_index(3).is_visible:
         assert False
     else:
         assert True
@@ -173,7 +175,7 @@ def test_submit_form(drv, app_config):
     # wait till the next page loads
     sleep(1)
 
-    if form_page.success_message.is_visible():
+    if form_page.success_message.is_visible:
         assert True
     else:
         assert False
@@ -188,10 +190,10 @@ def test_all_fields_empty(drv, app_config):
     form_page.go(app_config.url)
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(1).is_visible() and \
-            form_page.error_message_by_index(2).is_visible() and \
-            form_page.error_message_by_index(3).is_visible() and \
-            form_page.error_message_by_index(4).is_visible() and \
+    if form_page.error_message_by_index(1).is_visible and \
+            form_page.error_message_by_index(2).is_visible and \
+            form_page.error_message_by_index(3).is_visible and \
+            form_page.error_message_by_index(4).is_visible and \
             form_page.error_message_under_send_by_index(2):
         assert True
     else:
@@ -210,7 +212,7 @@ def test_incorrect_name_input(drv, app_config, incorrect_name):
     form_page.name_input_field.input_text(f"{incorrect_name}")
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(1).is_visible():
+    if form_page.error_message_by_index(1).is_visible:
         assert True
     else:
         assert False
@@ -229,7 +231,7 @@ def test_incorrect_email_input(drv, app_config, incorrect_email):
     form_page.email_input_field.input_text(f"{incorrect_email}")
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(2).is_visible():
+    if form_page.error_message_by_index(2).is_visible:
         assert True
     else:
         assert False
@@ -249,7 +251,7 @@ def test_incorrect_phone_input(drv, app_config, incorrect_phone):
     form_page.select_option_in_flag_dropdown_by_letters("ru").perform_click()
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(3).is_visible():
+    if form_page.error_message_by_index(3).is_visible:
         assert True
     else:
         assert False
@@ -267,7 +269,7 @@ def test_incorrect_budget_input(drv, app_config, incorrect_budget_input):
     form_page.budget_in_usd_input_field.input_text(f"{incorrect_budget_input}")
     form_page.send_button.perform_click()
 
-    if form_page.error_message_by_index(6).is_visible():
+    if form_page.error_message_by_index(6).is_visible:
         assert True
     else:
         assert False
