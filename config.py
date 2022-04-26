@@ -42,7 +42,8 @@ class Config:
         headless_options.headless = True
 
         # remote url
-        REMOTE_URL = "http://localhost:4444/wd/hub"
+        #REMOTE_URL = "http://localhost:4444/wd/hub"
+        REMOTE_URL = "http://selenium__standalone-chrome:4444/wd/hub"
 
         # Chrome window size settings
         chrome_window_size_options = ChromeOptions()
@@ -61,4 +62,4 @@ class Config:
         }[BROWSER]
 
 # sudo apt install openjdk-11-jre-headless
-# java -jar selenium-server-4.1.3.jar node
+# java -jar selenium-server-4.1.3.jar standalone
