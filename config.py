@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver import ChromeOptions
+import settings
 
 
 class Config:
@@ -43,7 +44,7 @@ class Config:
 
         # remote url
         #REMOTE_URL = "http://localhost:4444/wd/hub"
-        REMOTE_URL = "http://selenium__standalone-chrome:4444/wd/hub"
+        REMOTE_URL = settings.SELENIUM_URL
 
         # Chrome window size settings
         chrome_window_size_options = ChromeOptions()

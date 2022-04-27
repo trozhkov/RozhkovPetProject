@@ -2,3 +2,5 @@ selenium
 selenium-requests
 pytest
 pytest-xdist
+envparse
+webdriver_manager
