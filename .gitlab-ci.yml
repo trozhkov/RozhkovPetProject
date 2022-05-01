@@ -4,8 +4,7 @@ stages:
 e2e:
   stage: e2e
   interruptible: false
-  services:
-    - docker/compose:latest
+  image: docker/compose:latest
   before_script:
     - docker-compose -f e2e.yml up
   script:
