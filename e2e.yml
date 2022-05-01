@@ -1,15 +1,15 @@
 version: '3.7'
 
 services:
-#  e2e:
-#    build:
-#      dockerfile: Dockerfile
-#      context: .
-#    command: bash run_test_page.sh
-#    depends_on:
-#      - 'selenium-hub'
-#      - 'selenium-1'
-#      - 'selenium-2'
+  e2e:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: bash run_test_page.sh
+    depends_on:
+      - 'selenium-hub'
+      - 'selenium-1'
+      - 'selenium-2'
 
   selenium-1:
     image: selenium/node-chrome:latest

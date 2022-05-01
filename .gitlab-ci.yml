@@ -8,11 +8,8 @@ e2e:
   interruptible: false
   services:
     - docker:dind
-  before_script:
-    - docker version
-    - docker-compose -f e2e.yml up
   script:
-    - bash run_test_page.sh
+    - docker-compose -f e2e.yml up
 
 
 #test:
