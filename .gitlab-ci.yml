@@ -1,11 +1,15 @@
+image: docker/compose:latest
+
 stages:
   - e2e
 
 e2e:
   stage: e2e
   interruptible: false
-  image: docker/compose:latest
+  services:
+    - docker:dind
   before_script:
+    - docker version
     - docker-compose -f e2e.yml up
   script:
     - bash run_test_page.sh
