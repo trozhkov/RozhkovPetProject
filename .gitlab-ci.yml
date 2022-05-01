@@ -8,8 +8,10 @@ e2e:
     - python:3.8
     - selenium/hub:latest
     - selenium/node-chrome:latest
-  script:
+  before_script:
+    - apt-get install -y python-pip
     - pip3 install -r requirements.txt
+  script:
     - bash run_test_page.sh
 
 
