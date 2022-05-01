@@ -1,0 +1,5 @@
+.pytest_cache
+.idea
+junit
+screenshots
+try_this.py
