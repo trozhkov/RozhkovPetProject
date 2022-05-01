@@ -1,7 +1,7 @@
 stages:
   - e2e
 
-.e2e:
+e2e:
   stage: e2e
   interruptible: false
   script:
