@@ -5,9 +5,11 @@ e2e:
   stage: e2e
   interruptible: false
   services:
+    - python:3.8
     - selenium/hub:latest
     - selenium/node-chrome:latest
   script:
+    - python pip3 install pytest
     - bash run_test_page.sh
 
 
