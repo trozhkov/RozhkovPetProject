@@ -5,13 +5,9 @@ e2e:
   stage: e2e
   interruptible: false
   services:
-    - python:3.8
-    - selenium/hub:latest
-    - selenium/node-chrome:latest
+    - docker/compose:latest
   before_script:
-    - apt-get update
-    - apt-get install python-pip
-    - pip install -r requirements.txt
+    - docker-compose -f e2e.yml up
   script:
     - bash run_test_page.sh
 
