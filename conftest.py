@@ -23,8 +23,9 @@ def drv(app_config, get_parameters):
         drv = browser(command_executor=exe_path,
                       options=ARGS)
     else:
-        ARGS = app_config.browser[1]  # webdriver object
-        drv = browser(options=ARGS)  # options
+        ARGS = app_config.browser[1]  # options
+        SERVICE = app_config.browser[2]  # webdriver_manager
+        drv = browser(options=ARGS, service=SERVICE)  # options
 
     yield drv
 
@@ -68,33 +69,3 @@ def app_config(get_parameters):
     """
     configuration = Config(get_parameters)
     return configuration
-
-# def make_screenshot(self, name=None):
-#     test_name = self._test_fn_name
-#
-#     if name is None:
-#         try:
-#             index = self._screenshot_index
-#         except AttributeError:
-#             index = 1
-#
-#         self._screenshot_index = index + 1
-#         name = str(index)
-#
-#     screenshot_name = f'{test_name}/{name}.png'
-#     path_to_screenshot = os.path.abspath(os.path.join(SCREENSHOTS_DIR, screenshot_name))
-#     screenshot_dir = os.path.dirname(path_to_screenshot)
-#     os.makedirs(screenshot_dir, exist_ok=True)
-#     self.save_screenshot(path_to_screenshot)
-
-# test_name = request.function.__name__
-# driver._test_fn_name = test_name
-#
-# yield driver
-#
-# try:
-#     driver.make_screenshot('final')
-# except:
-#     pass
-#
-# driver.quit()

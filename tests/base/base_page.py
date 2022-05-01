@@ -1,5 +1,5 @@
 import os
-import settings
+from tests import settings
 import inspect
 
 

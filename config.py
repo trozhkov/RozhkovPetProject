@@ -1,7 +1,8 @@
 from selenium import webdriver
-from selenium.webdriver import FirefoxOptions
-from selenium.webdriver import ChromeOptions
-import settings
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.edge.service import Service
+from tests import settings
 
 
 class Config:
@@ -18,8 +19,8 @@ class Config:
             raise Exception(f"{ENV} is not supported (supported environments: {SUPPORTED_ENVS})")
 
         self.url = {
-            "prod": "http://rozhkovqa.tilda.ws/test_form",
-            "dev": "http://rozhkovqa.tilda.ws/test_form",
+            "prod": settings.PROD_URL,
+            "dev": settings.DEV_URL,
         }[ENV]
 
         self.port = {
@@ -38,29 +39,24 @@ class Config:
         width = "1920"
 
         # headless/remote mode settings
-        headless_options = ChromeOptions()
+        headless_options = webdriver.ChromeOptions()
         headless_options.add_argument(f"--window-size={width},{height}")
         headless_options.headless = True
 
-        # remote url
-        #REMOTE_URL = "http://localhost:4444/wd/hub"
-        REMOTE_URL = settings.SELENIUM_URL
-
-        # Chrome window size settings
-        chrome_window_size_options = ChromeOptions()
+        # Chrome settings
+        chrome_service = Service(executable_path=ChromeDriverManager().install())
+        chrome_window_size_options = webdriver.ChromeOptions()
         chrome_window_size_options.add_argument(f"--window-size={width},{height}")
 
-        # Firefox window size settings
-        firefox_window_size_options = FirefoxOptions()
+        # Firefox settings
+        firefox_service = Service(executable_path=GeckoDriverManager().install())
+        firefox_window_size_options = webdriver.FirefoxOptions()
         firefox_window_size_options.add_argument(f"--width={width}")
         firefox_window_size_options.add_argument(f"--height={height}")
 
         self.browser = {
-            "chrome": [webdriver.Chrome, chrome_window_size_options],
-            "firefox": [webdriver.Firefox, firefox_window_size_options],
-            "remote": [webdriver.Remote, REMOTE_URL, headless_options],
-            "headless": [webdriver.Chrome, headless_options]
+            "chrome": [webdriver.Chrome, chrome_window_size_options, chrome_service],
+            "firefox": [webdriver.Firefox, firefox_window_size_options, firefox_service],
+            "remote": [webdriver.Remote, settings.SELENIUM_URL, headless_options],
+            "headless": [webdriver.Chrome, headless_options, chrome_service]
         }[BROWSER]
-
-# sudo apt install openjdk-11-jre-headless
-# java -jar selenium-server-4.1.3.jar standalone

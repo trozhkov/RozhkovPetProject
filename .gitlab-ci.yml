@@ -1,11 +1,9 @@
-image: python:3.7.9-alpine
 stages:
-  - test
+  - e2e
 
-e2e:chrome:
-  services:
-    - selenium/standalone-chrome  # it's need to be configured with Remote webdriver in your tests to look at http://selenium__standalone-chrome:4444/wd/hub
-  before_script:
-    - pip3 install -r requirements.txt  # you can optimize this step by building your own image with pre-installled requirements and using it instead of current python:3.7.9-alpine image
+.e2e:
+  stage: e2e
+  interruptible: false
   script:
-    - pytest -m trial -s -v --env prod --browser remote
+    - docker-compose -f e2e.yml up
+    - bash run_test_page.sh
