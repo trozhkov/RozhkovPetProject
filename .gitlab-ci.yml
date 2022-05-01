@@ -9,7 +9,7 @@ e2e:
     - selenium/hub:latest
     - selenium/node-chrome:latest
   script:
-    - python pip3 install pytest
+    - pip install -r requirements.txt
     - bash run_test_page.sh
 
 
