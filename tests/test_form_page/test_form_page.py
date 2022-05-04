@@ -64,6 +64,7 @@ def test_correct_country_code_selection(drv, app_config):
 # https://docs.google.com/document/d/1rjbI62OkE9eXF-pere1pwMxoiF3SEY8ESr4krPLJVHo/edit?usp=sharing
 @mark.ui
 @mark.form_page
+@mark.error
 @mark.parametrize("phone", ["(456) 756-70-45", "(655) 764-25-34"])
 def test_correct_phone_number(drv, app_config, phone):
     form_page = FormPageElements(drv)
@@ -161,6 +162,7 @@ def test_press_minus_button(drv, app_config):
 # 10 Форма - Положительная проверка - Корректно заполнить форму и отправить ее
 # https://docs.google.com/document/d/1sh8a4CL6c05pqZIbzK1JqztpSLhOy7MMnhJWhGUspZ0/edit?usp=sharing
 @mark.ui
+@mark.error
 @mark.special
 def test_submit_form(drv, app_config):
     form_page = FormPageElements(drv)
@@ -205,6 +207,7 @@ def test_all_fields_empty(drv, app_config):
 # https://docs.google.com/document/d/1dhx9Vip1PBxO9WmCbcwtRDb82ejGQze5dfapHDZJH8c/edit?usp=sharing
 @mark.ui
 @mark.form_page
+@mark.error
 @mark.parametrize("incorrect_name", ["Ivan Ivanov1", "Иванов Иван@#", "342@3$дфг",
                                      "                    Иванов Иван"])
 def test_incorrect_name_input(drv, app_config, incorrect_name):
@@ -222,6 +225,7 @@ def test_incorrect_name_input(drv, app_config, incorrect_name):
 # 13 Форма - Негативная проверка - Ввести некорректныe данные в поле Your Email
 # https://docs.google.com/document/d/1PH4NtOJ-aBKkGbnAkQeewwEizA5eaxLRHNy2csU89gU/edit?usp=sharing
 @mark.ui
+@mark.error
 @mark.form_page
 @mark.parametrize("incorrect_email", ["asdf@", "маил@маил.сом", "mail@domain",
                                       "mail@domain", "m@ail@domain.com", "m#ail@domain.com",
