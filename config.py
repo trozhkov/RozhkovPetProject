@@ -44,12 +44,14 @@ class Config:
         headless_options.headless = True
 
         # Chrome settings
-        chrome_service = Service(executable_path=ChromeDriverManager().install())
+        #chrome_service = Service(executable_path=ChromeDriverManager().install())
+        chrome_service = 1
         chrome_window_size_options = webdriver.ChromeOptions()
         chrome_window_size_options.add_argument(f"--window-size={width},{height}")
 
         # Firefox settings
-        firefox_service = Service(executable_path=GeckoDriverManager().install())
+        #firefox_service = Service(executable_path=GeckoDriverManager().install())
+        firefox_service = 1
         firefox_window_size_options = webdriver.FirefoxOptions()
         firefox_window_size_options.add_argument(f"--width={width}")
         firefox_window_size_options.add_argument(f"--height={height}")

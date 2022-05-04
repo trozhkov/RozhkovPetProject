@@ -9,22 +9,4 @@ e2e:
   services:
     - docker:dind
   script:
-    - docker-compose -f e2e.yml up
-
-#test:
-#  stage: test
-#  image: $CMS_IMAGE_NAME
-#  variables:
-#    HUB_HOST: selenium
-#    HUB_PORT: 4444
-#    START_XVFB: 'false'
-#  services:
-#    - name: $DB_IMAGE_NAME
-#      alias: db
-#    - name: selenium/hub:3.141.59-titanium
-#      alias: selenium
-#    - name: selenium/node-firefox:3.141.59-titanium
-#  script:
-#    - export LIVE_TEST_CASE_HOST=$(ip addr show eth0 | grep inet | awk '{ print $2 }' | sed -En 's/^([^/]+)\/.*/\1/p'
-#    - cd /code
-#    - coverage run manage.py test
+    - docker-compose -f e2e.yml up --abort-on-container-exit

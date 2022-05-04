@@ -1,6 +1,6 @@
 selenium
 selenium-requests
-pytest
+pytest==7.0.1
 pytest-xdist
 envparse
 webdriver_manager
