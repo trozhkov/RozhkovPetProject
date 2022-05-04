@@ -9,7 +9,6 @@ JUNIT_DIR = env.str("JUNIT_DIR")
 """
 URLS
 """
-#SELENIUM_URL = "http://172.25.0.2:4444"
-SELENIUM_URL = "http://172.19.0.2:4444"
-PROD_URL = "http://rozhkovqa.tilda.ws/test_form"
-DEV_URL = "http://rozhkovqa.tilda.ws/test_form"
+SELENIUM_URL = env.str("SELENIUM_URL")
+PROD_URL = env.str("PROD_URL")
+DEV_URL = env.str("DEV_URL")

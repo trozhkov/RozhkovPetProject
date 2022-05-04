@@ -6,6 +6,15 @@ services:
       dockerfile: Dockerfile
       context: .
     command: bash run_test_page.sh
+
+    environment:
+      SCREENSHOTS_DIR: 'rozhkovPetProject/screenshots'
+      JUNIT_DIR: 'rozhkovPetProject/junit'
+      SELENIUM_URL: "http://172.20.0.2:4444"
+      PROD_URL: "http://rozhkovqa.tilda.ws/test_form"
+      DEV_URL: "http://rozhkovqa.tilda.ws/test_form"
+      PYTEST_WORKERS: 4
+
     depends_on:
       - 'selenium-hub'
       - 'selenium-1'
