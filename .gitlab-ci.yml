@@ -1,10 +1,11 @@
+image: docker/compose:latest
+
 stages:
   - e2e
 
 e2e:
   stage: e2e
   interruptible: false
-  image: docker/compose:latest
   services:
     - docker:dind
   script:
