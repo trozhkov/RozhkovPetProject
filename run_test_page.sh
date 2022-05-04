@@ -4,7 +4,7 @@ set -e
 # environment
 export SCREENSHOTS_DIR="rozhkovPetProject/screenshots"
 export JUNIT_DIR="rozhkovPetProject/junit"
-export SELENIUM_URL="http://172.20.0.2:4444"
+export SELENIUM_URL="http://172.19.0.2:4444"
 export PROD_URL="http://rozhkovqa.tilda.ws/test_form"
 export DEV_URL="http://rozhkovqa.tilda.ws/test_form"
 export PYTEST_WORKERS=4
