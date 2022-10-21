@@ -1,5 +1,7 @@
 from pytest import fixture
 from config import Config
+from threading import Thread
+from time import time
 
 """
 FIXTURES
@@ -29,6 +31,15 @@ def drv(app_config, get_parameters):
 
     yield drv
 
+    # # takes screenshots
+    # def recorder():
+    #     while True:
+    #         drv.save_screenshot(f"./rec/{str(time())}.png")
+
+    # # launches a second thread that runs concurrently with the test
+    # thread = Thread(target=recorder(), args=())
+    # thread.start()
+
     drv.quit()
 
 
@@ -47,6 +58,10 @@ def pytest_addoption(parser):
                      action="store",
                      default="chrome",
                      help="Select browser")
+    parser.addoption("--mode",
+                     action="store",
+                     default="prod",
+                     help="Specify if browser windows should stay open after tests are complete")
 
 
 @fixture(scope="session")
@@ -57,7 +72,8 @@ def get_parameters(request):
     """
     config_param = {
         "env": request.config.getoption("--env"),
-        "browser": request.config.getoption("--browser")
+        "browser": request.config.getoption("--browser"),
+        "mode": request.config.getoption("--mode")
     }
     return config_param
 

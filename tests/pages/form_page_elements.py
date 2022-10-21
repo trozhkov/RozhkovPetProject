@@ -82,3 +82,19 @@ class FormPageElements(tests.base.base_page.BasePage):
         return BE(driver=self.driver,
                   locator=Locator(by=By.XPATH,
                                   value="//div[@class='js-successbox t-form__successbox t-text t-text_md']"))
+
+
+class WikipediaPage(tests.base.base_page.BasePage):
+    @property
+    def english_lang_option(self):
+        return BE(driver=self.driver, locator=Locator(by=By.CSS_SELECTOR, value=".central-featured .lang1 strong"))
+
+
+    @property
+    def start_a_new_article_link(self):
+        return BE(driver=self.driver, locator=Locator(by=By.XPATH, value="//*[text()='Start a new article']"))
+
+    
+    @property
+    def help_us_with_other_tasks_link(self):
+        return BE(driver=self.driver, locator=Locator(by=By.CSS_SELECTOR, value=".quotebox-quote a[title='Wikipedia:Task Center']"))
